@@ -1,0 +1,126 @@
+.tela-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.card-interface {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cabecalho-simples {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.btn-voltar {
+  background: none;
+  border: none;
+  color: var(--text-h, #333);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cabecalho-simples h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: var(--text-h, #333);
+}
+
+.texto-instrucao {
+  text-align: left;
+  color: var(--text, #666);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.grupo-input {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.grupo-input label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-h, #333);
+}
+
+/* Estrutura do Input com Ícone */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-icone {
+  position: absolute;
+  left: 14px;
+  color: var(--text, #666);
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 12px 16px 12px 42px;
+  border: 1px solid var(--border, #ccc);
+  border-radius: 8px;
+  background-color: var(--code-bg, #f9f9f9);
+  color: var(--text-h, #333);
+  font-size: 1rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input-wrapper input:focus {
+  border-color: var(--accent, #2688d4);
+}
+
+.input-wrapper input:focus + .input-icone {
+  color: var(--accent, #2688d4);
+}
+
+.btn-primario {
+  background-color: var(--accent, #2688d4);
+  color: var(--cor-branca, #fff);
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  width: 100%;
+}
+
+.btn-primario:hover {
+  opacity: 0.9;
+}
+
+@media (min-width: 600px) {
+  .card-interface {
+    background-color: var(--cor-branca, #ffffff);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+}

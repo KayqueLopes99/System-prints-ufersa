@@ -12,38 +12,37 @@ skinparam class {
 ' --- Definição das Classes (Tabelas + Métodos) ---
 
 class "Usuario" as usuario {
-  * id_usuario : int <<PK>>
-  --
+  id_usuario : int
   nome_completo : String
-  matricula : String
   email : String
   senha_hash : String
-  curso : String
   preferencias_notificacao : boolean
   modo_escuro : boolean
   ==
-  + autenticarUsuario(matricula, senha)
-  + logout()
-  + visualizarPerfil(idUsuario)
-  + atualizarPerfil(idUsuario, novosDados)
-  + recuperarSenha(email)
-  + alterarSenha(novaSenha)
+  + autenticarUsuario(-) : boolean
+  + visualizarPerfil() : Usuario
+  + atualizarPerfil() : void
+  + recuperarSenha(-) : void
+  + alterarSenha(-) : void
+  + cadastrarUsuario(-) : void
 }
 
 class "Estudante" as estudante {
   --
+  matricula : String
+  curso : String
   ==
-  + cadastrarUsuario(dadosUsuario)
-  + atualizarPreferencias(dados)
+  + atualizarPreferencias(dados) : void
 }
 
 class "Administrador" as admin {
   --
   cargo_setor : String
   ==
-  + gerenciarSolicitacoes()
-  + visualizarRelatorios()
-  + gerenciarUsuarios()
+  + cadastrarAdministradorInterno() : void
+  + gerenciarSolicitacoes() : void
+  + visualizarRelatorios() : void
+  + gerenciarUsuarios() : void
 }
 
 class "Servico" as servico {
@@ -54,9 +53,9 @@ class "Servico" as servico {
   preco_unitario : double
   disponivel : boolean
   ==
-  + listarServicosAtivos()
-  + cadastrarServico(dadosServico)
-  + atualizarDisponibilidade(idServico, status)
+  + listarServicosAtivos() : List<Servico>
+  + cadastrarServico(dadosServico) : void
+  + atualizarDisponibilidade(idServico, status) : void
 }
 
 class "Pedido" as pedido {
@@ -70,18 +69,18 @@ class "Pedido" as pedido {
   total_paginas_arquivo : int
   valor_total : double
   ==
-  + criarPedido(idUsuario)
-  + adicionarItemAoPedido(idPedido, detalhesItem)
-  + fazerUploadArquivo(arquivo)
-  + calcularValorTotal(idPedido)
-  + confirmarPedido(idPedido)
-  + atualizarStatusPedido(idPedido, novoStatus)
-  + listarPedidosPorUsuario(idUsuario)
-  + listarFilaDePedidos()
-  + cancelarPedido(idPedido)
-  + obterEstatisticasUsuario(idUsuario)
-  + estimarTempoFila(idPedido)
-  + obterPosicaoFila(idPedido)
+  + criarPedido(idUsuario) : Pedido
+  + adicionarItemAoPedido(idPedido, detalhesItem) : void
+  + fazerUploadArquivo(arquivo) : String
+  + calcularValorTotal(idPedido) : double
+  + confirmarPedido(idPedido) : void
+  + atualizarStatusPedido(idPedido, novoStatus) : void
+  + listarPedidosPorUsuario(idUsuario) : List<Pedido>
+  + listarFilaDePedidos() : List<Pedido>
+  + cancelarPedido(idPedido) : void
+  + obterEstatisticasUsuario(idUsuario) : Map
+  + estimarTempoFila(idPedido) : String
+  + obterPosicaoFila(idPedido) : int
 }
 
 class "Item_Pedido" as item_pedido {
@@ -105,8 +104,8 @@ class "Pagamento" as pagamento {
   metodo : String ('PIX', 'Dinheiro', 'Cartao')
   status_pagamento : Enum ('Pendente', 'Pago')
   ==
-  + registrarPagamento(idPedido, metodo)
-  + atualizarStatusPagamento(idPagamento, status)
+  + registrarPagamento(idPedido, metodo) : void
+  + atualizarStatusPagamento(idPagamento, status) : void
 }
 
 class "Notificacao" as notificacao {
@@ -118,8 +117,8 @@ class "Notificacao" as notificacao {
   lida : boolean
   data_hora : Datetime
   ==
-  + listarNotificacoes(idUsuario)
-  + marcarComoLida(idNotificacao)
+  + listarNotificacoes(idUsuario) : List<Notificacao>
+  + marcarComoLida(idNotificacao) : void
 }
 
 class "Configuracao_Sistema" as config {
@@ -128,10 +127,10 @@ class "Configuracao_Sistema" as config {
   setor_aberto : boolean
   mensagem_aviso : String
   ==
-  + verificarStatusSetor()
-  + alterarStatusSetor(status, mensagem)
-  + enviarNotificacao(idUsuario, mensagem)
-  + obterQuadroHorarios()
+  + verificarStatusSetor() : boolean
+  + alterarStatusSetor(status, mensagem) : void
+  + enviarNotificacao(idUsuario, mensagem) : void
+  + obterQuadroHorarios() : String
 }
 
 ' --- Definição dos Relacionamentos ---

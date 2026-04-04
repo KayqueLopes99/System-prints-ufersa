@@ -1,29 +1,24 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { FaPrint } from 'react-icons/fa'; // 1. IMPORTAMOS O ÍCONE AQUI
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-function App() {
+// Importando as telas que acabamos de criar!
+import Login from './pages/Login/Login';
+import Cadastro from './pages/Cadastro/Cadastro';
+import RecuperarSenha from './pages/RecuperarSenha/RecuperarSenha';
+
+export default function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
-        <Route 
-          path="/" 
-          element={
-            <div style={{ textAlign: 'center', marginTop: '20vh' }}>
-              
-              {/* 2. USAMOS O ÍCONE AQUI, COMO SE FOSSE UMA TAG HTML */}
-              <h1 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px' }}>
-                <FaPrint size={40} color="#2688d4" /> Xerox UFERSA
-              </h1>
-              
-              <p>Bem-vindo ao Sistema de Gerenciamento de Impressões!</p>
-              <p style={{ color: '#2688d4' }}>Seu Front-End React está configurado e pronto para uso.</p>
-            </div>
-          } 
-        />
+        {/* Rota principal: Quando o site abrir ( / ), mostra o Login */}
+        <Route path="/" element={<Login />} />
+        
+        {/* Rota de Cadastro: Quando for /cadastro, mostra a tela de Cadastro */}
+        <Route path="/cadastro" element={<Cadastro />} />
+        
+        {/* Rota de Recuperar Senha: Quando for /recuperar-senha, mostra a tela */}
+        <Route path="/recuperar-senha" element={<RecuperarSenha />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
-
-export default App;

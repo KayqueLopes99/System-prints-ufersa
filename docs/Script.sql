@@ -9,13 +9,14 @@ CREATE TYPE status_pagamento_enum AS ENUM ('Pendente', 'Pago');
 CREATE TABLE usuario (
     id_usuario SERIAL PRIMARY KEY,
     nome_completo VARCHAR(255) NOT NULL,
-    matricula VARCHAR(20) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
-    senha_hash VARCHAR(255) NOT NULL,
-    curso VARCHAR(100),
+    senha VARCHAR(255) NOT NULL,
     preferencias_notificacao BOOLEAN DEFAULT TRUE,
     modo_escuro BOOLEAN DEFAULT FALSE,
-    -- Campos específicos do Administrador (Ficam nulos para Estudantes)
+
+    matricula VARCHAR(20) UNIQUE,
+    curso VARCHAR(100),
+
     cargo_setor VARCHAR(100) 
 );
 
