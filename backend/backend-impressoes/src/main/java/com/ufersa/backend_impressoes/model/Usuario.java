@@ -1,5 +1,7 @@
 package com.ufersa.backend_impressoes.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,11 +9,11 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "usuario")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE) 
-@DiscriminatorColumn(name = "tipo_usuario", discriminatorType = DiscriminatorType.STRING) 
-@Data 
-@NoArgsConstructor 
-@AllArgsConstructor 
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_usuario", discriminatorType = DiscriminatorType.STRING)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Usuario {
 
     @Id
@@ -33,4 +35,10 @@ public class Usuario {
 
     @Column(name = "modo_escuro", nullable = false, columnDefinition = "boolean default false")
     private Boolean modoEscuro = false;
+
+    @Column(name = "codigo_recuperacao")
+    private String codigoRecuperacao;
+
+    @Column(name = "data_expiracao")
+    private LocalDateTime dataExpiracao;
 }

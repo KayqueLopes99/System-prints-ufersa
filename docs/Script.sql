@@ -20,6 +20,9 @@ CREATE TABLE usuario (
     cargo_setor VARCHAR(100) 
 );
 
+ALTER TABLE usuario ADD COLUMN codigo_recuperacao VARCHAR(255);
+ALTER TABLE usuario ADD COLUMN data_expiracao TIMESTAMP;
+
 -- 3. TABELA SERVICO
 CREATE TABLE servico (
     id_servico SERIAL PRIMARY KEY,

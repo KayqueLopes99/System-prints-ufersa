@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 @RequestMapping("/api/usuarios")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*") // Permite que o seu React converse com o Java
 public class UsuarioController {
 
     @Autowired
@@ -39,9 +39,12 @@ public class UsuarioController {
     public ResponseEntity<?> recuperarSenha(@RequestBody Map<String, String> dados) {
         try {
             String email = dados.get("email");
+            
+            // Chama o Service que agora envia o e-mail de verdade!
             usuarioService.recuperarSenha(email);
             
-            return ResponseEntity.ok("Se o e-mail existir, as instruções foram enviadas (veja o console do VS Code!).");
+            // Mensagem atualizada para o Front-end
+            return ResponseEntity.ok("E-mail de recuperação enviado com sucesso! Verifique sua caixa de entrada.");
             
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -66,7 +69,6 @@ public class UsuarioController {
     @PostMapping("/cadastrar/estudante")
     public ResponseEntity<?> cadastrarEstudante(@RequestBody Estudante estudante) {
         try {
-
             Usuario usuarioSalvo = usuarioService.cadastrarUsuario(estudante);
             return ResponseEntity.ok(usuarioSalvo);
         } catch (RuntimeException e) {
@@ -77,7 +79,6 @@ public class UsuarioController {
     @PostMapping("/cadastrar/administrador")
     public ResponseEntity<?> cadastrarAdministrador(@RequestBody Administrador administrador) {
         try {
-
             Usuario usuarioSalvo = usuarioService.cadastrarUsuario(administrador);
             return ResponseEntity.ok(usuarioSalvo);
         } catch (RuntimeException e) {

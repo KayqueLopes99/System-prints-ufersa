@@ -101,19 +101,31 @@
   color: var(--accent, #2688d4);
 }
 
+/* --- Container do Checkbox e Esqueci a Senha --- */
 .opcoes-extras {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.9rem;
+  margin-top: 4px;
+  margin-bottom: 8px;
 }
 
 .checkbox-label {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 8px; /* Espaço entre a caixinha e o texto */
   color: var(--text, #666);
   cursor: pointer;
+}
+
+/* Estilo do quadradinho (checkbox) */
+.checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  margin: 0;
+  accent-color: var(--text-h, #333); /* Cor escurecida ao marcar */
 }
 
 .btn-primario {
@@ -142,6 +154,25 @@
 .rodape-link {
   margin-top: 16px;
   font-size: 0.9rem;
+}
+
+/* Botão do Olho na Senha */
+.btn-mostrar-senha {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  color: var(--text, #666);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.btn-mostrar-senha:hover {
+  color: var(--accent, #2688d4);
 }
 
 @media (min-width: 600px) {
