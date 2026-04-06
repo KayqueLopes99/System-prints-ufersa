@@ -120,11 +120,11 @@
 .destaque-senha input {
   border-color: #1d448b !important;
   background-color: #eef3fb !important;
-  padding-right: 45px !important; /* Espaço para o ícone do olho */
+  padding-right: 45px !important;
 }
 
 .input-wrapper-senha {
-  position: relative; /* Permite que o botão se posicione em relação a este div */
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
@@ -134,7 +134,7 @@
   position: absolute;
   right: 12px;
   top: 50%;
-  transform: translateY(-50%); /* Centraliza verticalmente com precisão */
+  transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
@@ -163,6 +163,25 @@
   font-size: 1rem;
 }
 
+.item-configuracao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card-bg, #fff);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Deixei fixo para não depender da variável global */
+}
+
+.config-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+}
+
+/* Botões Inferiores */
 .btn-limpar-cache, .btn-sair {
   display: flex;
   align-items: center;
@@ -198,7 +217,7 @@
   background-color: #f0f0f0;
 }
 
-/* --- Animações e Feedbacks --- */
+/* --- Animações e Efeitos Visuais --- */
 @keyframes brilho-verde {
   0% { box-shadow: 0 0 5px rgba(55, 140, 38, 0.3); }
   50% { box-shadow: 0 0 15px rgba(55, 140, 38, 0.6); }
@@ -209,25 +228,7 @@
   transform: scale(0.97);
 }
 
-.item-configuracao {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--card-bg, #fff);
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    box-shadow: var(--shadow);
-}
-
-.config-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-weight: 500;
-}
-
-/* Estilo do Switch (O botão deslizante) */
+/* --- Switch (Botão Deslizante) --- */
 .switch {
   position: relative;
   display: inline-block;
@@ -267,4 +268,3 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(26px);
 }
-

@@ -12,10 +12,10 @@ skinparam class {
 ' --- Definição das Classes (Tabelas + Métodos) ---
 
 class "Usuario" as usuario {
-  id_usuario : int
-  nome_completo : String
-  email : String
-  senha: String
+  - id_usuario : int
+  - nome_completo : String
+  - email : String
+  - senha : String
   ==
   + autenticarUsuario(-) : boolean
   + visualizarPerfil(-) : Usuario
@@ -27,15 +27,15 @@ class "Usuario" as usuario {
 
 class "Estudante" as estudante {
   --
-  matricula : String
-  curso : String
+  - matricula : String
+  - curso : String
   ==
   + atualizarPreferencias(dados) : void
 }
 
 class "Administrador" as admin {
   --
-  cargo_setor : String
+  - cargo_setor : String
   ==
   + cadastrarAdministradorInterno() : void
   + gerenciarSolicitacoes() : void
@@ -45,12 +45,12 @@ class "Administrador" as admin {
 }
 
 class "Servico" as servico {
-  * id_servico : int <<PK>>
+  - id_servico : int <<PK>>
   --
-  nome_servico : String
-  categoria_servico : Enum ('Impressao', 'Plotagem', 'Digitalizacao', 'Produto')
-  preco_unitario : double
-  disponivel : boolean
+  - nome_servico : String
+  - categoria_servico : Enum ('Impressao', 'Plotagem', 'Digitalizacao', 'Produto')
+  - preco_unitario : double
+  - disponivel : boolean
   ==
   + listarServicosAtivos() : List<Servico>
   + cadastrarServico(dadosServico) : void
@@ -58,15 +58,15 @@ class "Servico" as servico {
 }
 
 class "Pedido" as pedido {
-  * id_pedido : int <<PK>>
+  - id_pedido : int <<PK>>
   --
-  ~ id_usuario : int <<FK>>
-  data_hora : Datetime
-  status_fila : Enum ('Pendente', 'Na Fila', 'Imprimindo', 'Pronto', 'Cancelado')
-  arquivo_url : String
-  tamanho_arquivo_mb : double
-  total_paginas_arquivo : int
-  valor_total : double
+  - id_usuario : int <<FK>>
+  - data_hora : Datetime
+  - status_fila : Enum ('Pendente', 'Na Fila', 'Imprimindo', 'Pronto', 'Cancelado')
+  - arquivo_url : String
+  - tamanho_arquivo_mb : double
+  - total_paginas_arquivo : int
+  - valor_total : double
   ==
   + criarPedido(idUsuario) : Pedido
   + adicionarItemAoPedido(idPedido, detalhesItem) : void
@@ -83,60 +83,60 @@ class "Pedido" as pedido {
 }
 
 class "Item_Pedido" as item_pedido {
-  * id_item : int <<PK>>
+  - id_item : int <<PK>>
   --
-  ~ id_pedido : int <<FK>>
-  ~ id_servico : int <<FK>>
-  quantidade : int
-  tamanho_papel : String
-  orientacao : Enum ('Retrato', 'Paisagem')
-  frente_verso : boolean
-  tipo_cor : Enum ('Preto e Branco', 'Colorido')
-  observacoes : String
+  - id_pedido : int <<FK>>
+  - id_servico : int <<FK>>
+  - quantidade : int
+  - tamanho_papel : String
+  - orientacao : Enum ('Retrato', 'Paisagem')
+  - frente_verso : boolean
+  - tipo_cor : Enum ('Preto e Branco', 'Colorido')
+  - observacoes : String
   ==
 }
 
 class "Pagamento" as pagamento {
-  * id_pagamento : int <<PK>>
+  - id_pagamento : int <<PK>>
   --
-  ~ id_pedido : int <<FK>>
-  metodo : String ('PIX', 'Dinheiro', 'Cartao')
-  status_pagamento : Enum ('Pendente', 'Pago')
+  - id_pedido : int <<FK>>
+  - metodo : String ('PIX', 'Dinheiro', 'Cartao')
+  - status_pagamento : Enum ('Pendente', 'Pago')
   ==
   + registrarPagamento(idPedido, metodo) : void
   + atualizarStatusPagamento(idPagamento, status) : void
 }
 
 class "Notificacao" as notificacao {
-  * id_notificacao : int <<PK>>
+  - id_notificacao : int <<PK>>
   --
-  ~ id_usuario : int <<FK>>
-  titulo : String
-  mensagem : String
-  lida : boolean
-  data_hora : Datetime
+  - id_usuario : int <<FK>>
+  - titulo : String
+  - mensagem : String
+  - lida : boolean
+  - data_hora : Datetime
   ==
   + listarNotificacoes(idUsuario) : List<Notificacao>
   + marcarComoLida(idNotificacao) : void
 }
 
 class "Horario_Funcionamento" as horario {
-  * id_horario : int <<PK>>
+  - id_horario : int <<PK>>
   --
-  dia_semana : String
-  manha : String
-  tarde : String
-  noite : String
+  - dia_semana : String
+  - manha : String
+  - tarde : String
+  - noite : String
   ==
   + cadastrarHorario(dados) : void
   + atualizarHorario(id, dados) : void
 }
 
 class "Configuracao_Sistema" as config {
-  * id_config : int <<PK>>
+  - id_config : int <<PK>>
   --
-  setor_aberto : boolean
-  mensagem_aviso : String
+  - setor_aberto : boolean
+  - mensagem_aviso : String
   ==
   + verificarStatusSetor() : boolean
   + alterarStatusSetor(status, mensagem) : void
