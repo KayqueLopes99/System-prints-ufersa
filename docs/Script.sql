@@ -12,8 +12,7 @@ CREATE TABLE usuario (
     email VARCHAR(255) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
     preferencias_notificacao BOOLEAN DEFAULT TRUE,
-    modo_escuro BOOLEAN DEFAULT FALSE,
-
+    
     matricula VARCHAR(20) UNIQUE,
     curso VARCHAR(100),
 
@@ -80,4 +79,14 @@ CREATE TABLE configuracao_sistema (
     id_config SERIAL PRIMARY KEY,
     setor_aberto BOOLEAN DEFAULT TRUE,
     mensagem_aviso TEXT
+);
+
+-- 9. TABELA HORARIO_FUNCIONAMENTO (Adicionada agora)
+CREATE TABLE horario_funcionamento (
+    id_horario SERIAL PRIMARY KEY,
+    id_config INT NOT NULL REFERENCES configuracao_sistema(id_config) ON DELETE CASCADE,
+    dia_semana VARCHAR(50) NOT NULL,
+    manha VARCHAR(50) DEFAULT 'Fechado',
+    tarde VARCHAR(50) DEFAULT 'Fechado',
+    noite VARCHAR(50) DEFAULT 'Fechado'
 );

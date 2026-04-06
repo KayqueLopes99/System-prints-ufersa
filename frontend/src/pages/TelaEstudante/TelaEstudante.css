@@ -1,0 +1,117 @@
+/* Fundo geral da tela baseado na imagem */
+.app-container {
+  background-color: #f8f7f2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  padding-bottom: 70px; /* Espaço para a barra inferior não cobrir a tabela */
+}
+
+/* Cabeçalho */
+.header-topo {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+/* Conteúdo central */
+.conteudo-principal {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.saudacao {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Botão Verde */
+.botao-aberto {
+  background-color: #388e3c;
+  color: white;
+  width: 100%;
+  text-align: center;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.titulo-secao {
+  color: #444;
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+/* TABELA AZUL E BRANCA */
+.tabela-container {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid #1d448b;
+  background-color: white;
+  margin-bottom: 30px;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 14px;
+}
+
+.tabela thead {
+  background-color: #1d448b;
+  color: white;
+}
+
+.tabela th {
+  padding: 15px 10px;
+  font-weight: bold;
+}
+
+.tabela td {
+  padding: 15px 5px;
+  color: #333;
+}
+
+/* Regra para o texto "Fechado" em vermelho */
+.texto-vermelho {
+  color: #a32a2a;
+}
+
+/* NAVEGAÇÃO INFERIOR */
+.navegacao-inferior {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #1d448b;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.icone-nav {
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* O ícone da "Home" que está selecionado tem o fundo branco e ícone azul */
+.icone-nav.ativo {
+  background-color: white;
+  color: #1d448b;
+}
+

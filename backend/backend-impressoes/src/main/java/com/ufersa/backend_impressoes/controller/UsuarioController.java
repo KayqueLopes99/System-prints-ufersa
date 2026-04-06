@@ -9,12 +9,11 @@ import com.ufersa.backend_impressoes.model.Administrador;
 import com.ufersa.backend_impressoes.model.Estudante;
 
 import java.util.Map;
-
-import org.springframework.web.bind.annotation.CrossOrigin;
-
-@RestController
-@RequestMapping("/api/usuarios")
-@CrossOrigin(origins = "*") // Permite que o seu React converse com o Java
+import com.ufersa.backend_impressoes.dto.UsuarioAtualizacaoDTO;
+@RestController // 👉 ADICIONE ISSO
+@RequestMapping("/api/usuarios") // 👉 ADICIONE ISSO
+@CrossOrigin(origins = "*")
+// Permite que o seu React converse com o Java
 public class UsuarioController {
 
     @Autowired
@@ -23,10 +22,11 @@ public class UsuarioController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> dadosLogin) {
         try {
-            String email = dadosLogin.get("email");
+            // No React você envia como "email", mas aqui tratamos como "login"
+            String login = dadosLogin.get("email"); 
             String senha = dadosLogin.get("senha");
             
-            Usuario usuarioLogado = usuarioService.autenticarUsuario(email, senha);
+            Usuario usuarioLogado = usuarioService.autenticarUsuario(login, senha);
             return ResponseEntity.ok(usuarioLogado); 
             
         } catch (RuntimeException e) {
@@ -34,18 +34,17 @@ public class UsuarioController {
         }
     }
 
-    
     @PostMapping("/recuperar-senha")
     public ResponseEntity<?> recuperarSenha(@RequestBody Map<String, String> dados) {
         try {
             String email = dados.get("email");
-            
+
             // Chama o Service que agora envia o e-mail de verdade!
             usuarioService.recuperarSenha(email);
-            
+
             // Mensagem atualizada para o Front-end
             return ResponseEntity.ok("E-mail de recuperação enviado com sucesso! Verifique sua caixa de entrada.");
-            
+
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -56,15 +55,14 @@ public class UsuarioController {
         try {
             String email = dados.get("email");
             String novaSenha = dados.get("novaSenha");
-            
+
             usuarioService.alterarSenha(email, novaSenha);
             return ResponseEntity.ok("Senha alterada com sucesso!");
-            
+
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
 
     @PostMapping("/cadastrar/estudante")
     public ResponseEntity<?> cadastrarEstudante(@RequestBody Estudante estudante) {
@@ -81,6 +79,26 @@ public class UsuarioController {
         try {
             Usuario usuarioSalvo = usuarioService.cadastrarUsuario(administrador);
             return ResponseEntity.ok(usuarioSalvo);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> visualizarPerfil(@PathVariable int id) {
+        try {
+            Usuario usuario = usuarioService.visualizarPerfil(id);
+            return ResponseEntity.ok(usuario);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizarPerfil(@PathVariable int id, @RequestBody UsuarioAtualizacaoDTO dto) {
+        try {
+            Usuario usuarioAtualizado = usuarioService.atualizarPerfil(id, dto);
+            return ResponseEntity.ok(usuarioAtualizado);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

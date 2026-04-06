@@ -2,6 +2,9 @@ package com.ufersa.backend_impressoes.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +17,19 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
+@JsonTypeInfo(
+  use = JsonTypeInfo.Id.NAME, 
+  include = JsonTypeInfo.As.EXISTING_PROPERTY, 
+  property = "tipo_usuario", 
+  visible = true
+)
+@JsonSubTypes({
+  @JsonSubTypes.Type(value = Estudante.class, name = "ESTUDANTE"),
+  @JsonSubTypes.Type(value = Administrador.class, name = "ADMINISTRADOR")
+})
+
+
 public class Usuario {
 
     @Id
@@ -32,9 +48,6 @@ public class Usuario {
 
     @Column(name = "preferencias_notificacao", nullable = false, columnDefinition = "boolean default true")
     private Boolean preferenciasNotificacao = true;
-
-    @Column(name = "modo_escuro", nullable = false, columnDefinition = "boolean default false")
-    private Boolean modoEscuro = false;
 
     @Column(name = "codigo_recuperacao")
     private String codigoRecuperacao;

@@ -6,6 +6,8 @@ import Login from './pages/Login/Login';
 import Cadastro from './pages/Cadastro/Cadastro';
 import RecuperarSenha from './pages/RecuperarSenha/RecuperarSenha';
 import AtualizarSenha from './pages/AtualizarSenha/AtualizarSenha';
+import TelaEstudante from "./pages/TelaEstudante/TelaEstudante"; 
+import Perfil from './pages/Perfil/Perfil'; // 👈 Import perfeito!
 
 export default function App() {
   return (
@@ -21,6 +23,12 @@ export default function App() {
         <Route path="/recuperar-senha" element={<RecuperarSenha />} />
 
         <Route path="/AtualizarSenha" element={<AtualizarSenha />} />
+
+        {/* Rota da Tela Principal do Estudante */}
+        <Route path="/estudante" element={<TelaEstudante />} />
+
+        {/* 👇 ROTA DO PERFIL: Faltou adicionar esta linha aqui! */}
+        <Route path="/perfil" element={<Perfil />} />
 
       </Routes>
     </Router>

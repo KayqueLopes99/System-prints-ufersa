@@ -1,0 +1,270 @@
+/* --- Container Principal --- */
+.perfil-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f7f6;
+  font-family: Arial, sans-serif;
+}
+
+/* --- Header --- */
+.perfil-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.perfil-header h2 {
+  margin: 0;
+  color: #1d448b;
+  font-size: 1.3rem;
+}
+
+/* --- Conteúdo --- */
+.perfil-conteudo {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* --- Card de Dados --- */
+.card-dados {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.cabecalho-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.cabecalho-card h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+/* --- Botões de Ação (Editar/Salvar) --- */
+.btn-acao {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.2s;
+}
+
+.btn-editar {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.btn-salvar {
+  background-color: #378C26;
+  color: white;
+  animation: brilho-verde 2s infinite ease-in-out;
+}
+
+/* --- Grupos de Campos --- */
+.campo-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.campo-grupo label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #555;
+}
+
+.campo-grupo input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f9f9f9;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Estado desabilitado (apenas leitura) */
+.campo-grupo input:disabled {
+  background-color: #fff;
+  border-color: transparent;
+  padding: 12px 0;
+  color: #666;
+  font-weight: 500;
+  cursor: default;
+}
+
+/* --- Lógica da Senha e do Olho --- */
+.destaque-senha input {
+  border-color: #1d448b !important;
+  background-color: #eef3fb !important;
+  padding-right: 45px !important; /* Espaço para o ícone do olho */
+}
+
+.input-wrapper-senha {
+  position: relative; /* Permite que o botão se posicione em relação a este div */
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.btn-mostrar-senha-perfil {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%); /* Centraliza verticalmente com precisão */
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.btn-mostrar-senha-perfil:hover {
+  color: #1d448b;
+}
+
+/* --- Área de Perigo e Configurações --- */
+.area-perigo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.area-perigo h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+.btn-limpar-cache, .btn-sair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-limpar-cache {
+  border: 1px solid #ff4d4f;
+  color: #ff4d4f;
+}
+
+.btn-limpar-cache:active {
+  background-color: #ff4d4f;
+  color: #fff;
+}
+
+.btn-sair {
+  border: 1px solid #666;
+  color: #333;
+  margin-top: 8px;
+}
+
+.btn-sair:hover, .btn-sair:active {
+  background-color: #f0f0f0;
+}
+
+/* --- Animações e Feedbacks --- */
+@keyframes brilho-verde {
+  0% { box-shadow: 0 0 5px rgba(55, 140, 38, 0.3); }
+  50% { box-shadow: 0 0 15px rgba(55, 140, 38, 0.6); }
+  100% { box-shadow: 0 0 5px rgba(55, 140, 38, 0.3); }
+}
+
+.btn-acao:active, .btn-sair:active, .btn-limpar-cache:active {
+  transform: scale(0.97);
+}
+
+.item-configuracao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-bg, #fff);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    box-shadow: var(--shadow);
+}
+
+.config-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+}
+
+/* Estilo do Switch (O botão deslizante) */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px; width: 18px;
+  left: 3px; bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #1d448b;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+

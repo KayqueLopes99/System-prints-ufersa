@@ -15,13 +15,11 @@ class "Usuario" as usuario {
   id_usuario : int
   nome_completo : String
   email : String
-  senha_hash : String
-  preferencias_notificacao : boolean
-  modo_escuro : boolean
+  senha: String
   ==
   + autenticarUsuario(-) : boolean
-  + visualizarPerfil() : Usuario
-  + atualizarPerfil() : void
+  + visualizarPerfil(-) : Usuario
+  + atualizarPerfil(-) : void
   + recuperarSenha(-) : void
   + alterarSenha(-) : void
   + cadastrarUsuario(-) : void
@@ -43,6 +41,7 @@ class "Administrador" as admin {
   + gerenciarSolicitacoes() : void
   + visualizarRelatorios() : void
   + gerenciarUsuarios() : void
+  + gerenciarHorarios() : void
 }
 
 class "Servico" as servico {
@@ -121,6 +120,18 @@ class "Notificacao" as notificacao {
   + marcarComoLida(idNotificacao) : void
 }
 
+class "Horario_Funcionamento" as horario {
+  * id_horario : int <<PK>>
+  --
+  dia_semana : String
+  manha : String
+  tarde : String
+  noite : String
+  ==
+  + cadastrarHorario(dados) : void
+  + atualizarHorario(id, dados) : void
+}
+
 class "Configuracao_Sistema" as config {
   * id_config : int <<PK>>
   --
@@ -130,7 +141,7 @@ class "Configuracao_Sistema" as config {
   + verificarStatusSetor() : boolean
   + alterarStatusSetor(status, mensagem) : void
   + enviarNotificacao(idUsuario, mensagem) : void
-  + obterQuadroHorarios() : String
+  + obterQuadroHorariosCompleto(-) : List<Horario_Funcionamento>
 }
 
 ' --- Definição dos Relacionamentos ---
@@ -153,5 +164,8 @@ servico ||--o{ item_pedido : "é adicionado em"
 
 ' Um Pedido pode ter ZERO ou UM Pagamento registrado (1:1)
 pedido ||--o| pagamento : "possui"
+
+' O sistema possui vários horários de funcionamento (1:N)
+config ||--o{ horario : "possui"
 
 @enduml

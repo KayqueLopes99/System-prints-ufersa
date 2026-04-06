@@ -4,7 +4,7 @@
 
 * **RF01 - Cadastro de Usuários:** O sistema deve permitir a criação de contas para estudantes, professores e atendentes, coletando dados como nome, matrícula, e-mail e curso.
 * **RF02 - Autenticação e Recuperação (Login/Logout):** O sistema deve autenticar usuários utilizando credenciais acadêmicas e oferecer a opção de redefinição de senha via e-mail.
-* **RF03 - Gestão de Perfil e Preferências:** O sistema deve permitir que o usuário visualize e atualize suas informações de contato e ajuste configurações do sistema (ex: ativar notificações, habilitar modo escuro).
+* **RF03 - Gestão de Perfil e Preferências:** O sistema deve permitir que o usuário visualize e atualize suas informações de contato e ajuste configurações do sistema (ex: ativar notificações).
 * **RF04 - Controle de Acesso:** O sistema deve ter interfaces diferentes baseadas no perfil do usuário (visão do cliente vs. painel da atendente).
 * **RF05 - Envio Remoto de Arquivos:** O sistema deve permitir o upload de arquivos (PDF, DOCX, etc.) de forma remota, exibindo o tamanho do arquivo e a quantidade de páginas identificadas.
 * **RF06 - Configuração de Impressão e Serviços:** O sistema deve permitir que o estudante selecione parâmetros precisos (frente e verso, orientação, tipo de cor, tamanho do papel) diretamente na plataforma.
