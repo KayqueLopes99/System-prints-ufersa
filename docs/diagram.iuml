@@ -62,24 +62,30 @@ class "Pedido" as pedido {
   --
   - id_usuario : int <<FK>>
   - data_hora : Datetime
-  - status_fila : Enum ('Pendente', 'Na Fila', 'Imprimindo', 'Pronto', 'Cancelado')
+  - status_fila : StatusPedido
   - arquivo_url : String
+  - nome_arquivo_original : String
   - tamanho_arquivo_mb : double
   - total_paginas_arquivo : int
   - valor_total : double
   ==
-  + criarPedido(idUsuario) : Pedido
-  + adicionarItemAoPedido(idPedido, detalhesItem) : void
-  + fazerUploadArquivo(arquivo) : String
-  + calcularValorTotal(idPedido) : double
-  + confirmarPedido(idPedido) : void
-  + atualizarStatusPedido(idPedido, novoStatus) : void
-  + listarPedidosPorUsuario(idUsuario) : List<Pedido>
+  ' Métodos de Regra de Negócio e Fila (Originais)
+  + criarPedido() : Pedido
+  + adicionarItemAoPedido() : void
+  + fazerUploadArquivo() : String
+  + calcularValorTotal() : double
+  + confirmarPedido() : void
+  + atualizarStatusPedido() : void
   + listarFilaDePedidos() : List<Pedido>
-  + cancelarPedido(idPedido) : void
-  + obterEstatisticasUsuario(idUsuario) : Map
-  + estimarTempoFila(idPedido) : String
-  + obterPosicaoFila(idPedido) : int
+  + cancelarPedido() : void
+  + estimarTempoFila() : String
+  + obterPosicaoFila() : int
+  
+  ' Métodos Sincronizados com PedidoService.java (Novos)
+  + obterEstatisticasUsuario(idUsuario) : EstatisticasPedidoDTO
+  + listarPedidosAtivos(idUsuario) : List<PedidoCardDTO>
+  + listarPedidosHistorico(idUsuario) : List<Pedido>
+  + listarPedidosPorStatus(idUsuario, status) : List<Pedido>
 }
 
 class "Item_Pedido" as item_pedido {

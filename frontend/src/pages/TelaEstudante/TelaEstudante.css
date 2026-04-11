@@ -35,6 +35,7 @@
   background-color: #388e3c;
   color: white;
   width: 100%;
+  max-width: 300px; /* 👉 ADICIONADO AQUI: Limita a largura do botão e deixa ele menorzinho no meio */
   text-align: center;
   padding: 15px;
   border-radius: 8px;
@@ -114,4 +115,3 @@
   background-color: white;
   color: #1d448b;
 }
-

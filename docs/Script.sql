@@ -1,13 +1,14 @@
--- 1. CRIAÇÃO DOS TIPOS ENUM (Para garantir a integridade dos dados)
-CREATE TYPE categoria_servico_enum AS ENUM ('Impressao', 'Plotagem', 'Digitalizacao', 'Produto');
-CREATE TYPE status_fila_enum AS ENUM ('Pendente', 'Na Fila', 'Imprimindo', 'Pronto', 'Cancelado');
-CREATE TYPE orientacao_enum AS ENUM ('Retrato', 'Paisagem');
-CREATE TYPE tipo_cor_enum AS ENUM ('Preto e Branco', 'Colorido');
-CREATE TYPE status_pagamento_enum AS ENUM ('Pendente', 'Pago');
+-- 1. CRIAÇÃO DOS TIPOS ENUM (Ajustados para o padrão do Java/Spring Boot)
+CREATE TYPE categoria_servico_enum AS ENUM ('IMPRESSAO', 'PLOTAGEM', 'DIGITALIZACAO', 'PRODUTO');
+CREATE TYPE status_fila_enum AS ENUM ('PENDENTE', 'NA_FILA', 'IMPRIMINDO', 'PRONTO', 'CONCLUIDO', 'CANCELADO');
+CREATE TYPE orientacao_enum AS ENUM ('RETRATO', 'PAISAGEM');
+CREATE TYPE tipo_cor_enum AS ENUM ('PRETO_BRANCO', 'COLORIDO');
+CREATE TYPE status_pagamento_enum AS ENUM ('PENDENTE', 'PAGO');
 
 -- 2. TABELA USUARIO (Contendo os campos de Estudante e Administrador - Estratégia de Herança)
 CREATE TABLE usuario (
     id_usuario SERIAL PRIMARY KEY,
+    tipo_usuario VARCHAR(50) NOT NULL, -- 👉 ADICIONADO: Obrigatório para a herança do Java funcionar
     nome_completo VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
@@ -36,8 +37,9 @@ CREATE TABLE pedido (
     id_pedido SERIAL PRIMARY KEY,
     id_usuario INT REFERENCES usuario(id_usuario) ON DELETE CASCADE,
     data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status_fila status_fila_enum DEFAULT 'Pendente',
+    status_fila status_fila_enum DEFAULT 'PENDENTE', -- 👉 Ajustado para maiúsculo
     arquivo_url VARCHAR(500),
+    nome_arquivo_original VARCHAR(255), -- 👉 ADICIONADO: Para mostrar o nome bonito na tela do React
     tamanho_arquivo_mb DECIMAL(10,2),
     total_paginas_arquivo INT,
     valor_total DECIMAL(10,2)
@@ -61,7 +63,7 @@ CREATE TABLE pagamento (
     id_pagamento SERIAL PRIMARY KEY,
     id_pedido INT UNIQUE REFERENCES pedido(id_pedido) ON DELETE CASCADE,
     metodo VARCHAR(50), -- PIX, Dinheiro, Cartao
-    status_pagamento status_pagamento_enum DEFAULT 'Pendente'
+    status_pagamento status_pagamento_enum DEFAULT 'PENDENTE' -- 👉 Ajustado para maiúsculo
 );
 
 -- 7. TABELA NOTIFICACAO
@@ -81,7 +83,7 @@ CREATE TABLE configuracao_sistema (
     mensagem_aviso TEXT
 );
 
--- 9. TABELA HORARIO_FUNCIONAMENTO (Adicionada agora)
+-- 9. TABELA HORARIO_FUNCIONAMENTO
 CREATE TABLE horario_funcionamento (
     id_horario SERIAL PRIMARY KEY,
     id_config INT NOT NULL REFERENCES configuracao_sistema(id_config) ON DELETE CASCADE,
@@ -90,3 +92,18 @@ CREATE TABLE horario_funcionamento (
     tarde VARCHAR(50) DEFAULT 'Fechado',
     noite VARCHAR(50) DEFAULT 'Fechado'
 );
+
+-- =========================================================================
+-- 3. INSERINDO DADOS DO SISTEMA E HORÁRIOS
+-- =========================================================================
+INSERT INTO configuracao_sistema (setor_aberto, mensagem_aviso) 
+VALUES (true, 'Bem-vindo ao setor de impressão!');
+
+INSERT INTO horario_funcionamento (id_config, dia_semana, manha, tarde, noite) VALUES 
+(1, 'Segunda-feira', '08:00 - 12:00', '13:30 - 18:00', '19:00 - 22:00'),
+(1, 'Terça-feira',   '08:00 - 12:00', '13:30 - 18:00', '19:00 - 22:00'),
+(1, 'Quarta-feira',  '08:00 - 12:00', '13:30 - 18:00', '19:00 - 22:00'),
+(1, 'Quinta-feira',  '08:00 - 12:00', '13:30 - 18:00', '19:00 - 22:00'),
+(1, 'Sexta-feira',   '08:00 - 12:00', '13:30 - 18:00', '19:00 - 22:00'),
+(1, 'Sábado',        'Fechado',       'Fechado',       'Fechado'),
+(1, 'Domingo',       'Fechado',       'Fechado',       'Fechado');

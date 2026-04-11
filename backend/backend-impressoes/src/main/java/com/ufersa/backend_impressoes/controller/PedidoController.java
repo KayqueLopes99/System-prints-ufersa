@@ -1,0 +1,50 @@
+package com.ufersa.backend_impressoes.controller;
+
+import com.ufersa.backend_impressoes.dto.EstatisticasPedidoDTO;
+import com.ufersa.backend_impressoes.dto.PedidoCardDTO;
+import com.ufersa.backend_impressoes.model.Pedido;
+import com.ufersa.backend_impressoes.model.enuns.StatusPedido;
+
+import com.ufersa.backend_impressoes.service.PedidoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/pedidos")
+@CrossOrigin(origins = "*") // Permite o React acessar sem erro de CORS
+public class PedidoController {
+
+    @Autowired
+    private PedidoService pedidoService;
+
+    // Rota para os cards: GET /api/pedidos/estatisticas/1
+    @GetMapping("/estatisticas/{idUsuario}")
+    public ResponseEntity<EstatisticasPedidoDTO> getEstatisticas(@PathVariable int idUsuario) {
+        return ResponseEntity.ok(pedidoService.obterEstatisticasUsuario(idUsuario));
+    }
+
+    // Rota para a aba "Ativos": GET /api/pedidos/ativos/1
+    @GetMapping("/ativos/{idUsuario}")
+    public ResponseEntity<List<PedidoCardDTO>> getPedidosAtivos(@PathVariable int idUsuario) {
+        // Chamando o método correto do service que criamos no passo anterior
+        List<PedidoCardDTO> pedidos = pedidoService.listarPedidosAtivos(idUsuario);
+        return ResponseEntity.ok(pedidos);
+    }
+
+    // Rota para aba "Histórico" (Todos): GET /api/pedidos/historico/1
+    @GetMapping("/historico/{idUsuario}")
+    public ResponseEntity<List<Pedido>> getHistoricoTodos(@PathVariable int idUsuario) {
+        return ResponseEntity.ok(pedidoService.listarPedidosHistorico(idUsuario));
+    }
+
+    // Rota para abas específicas: GET /api/pedidos/usuario/1/status/CONCLUIDO
+    @GetMapping("/usuario/{idUsuario}/status/{status}")
+    public ResponseEntity<List<Pedido>> getPedidosPorStatus(
+            @PathVariable int idUsuario,
+            @PathVariable StatusPedido status) {
+        return ResponseEntity.ok(pedidoService.listarPedidosPorStatus(idUsuario, status));
+    }
+}

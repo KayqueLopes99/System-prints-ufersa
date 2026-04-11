@@ -100,12 +100,14 @@ export default function Cadastro() {
     }
 
     // Se tudo estiver certo, prepara para enviar ao Java!
+// Se tudo estiver certo, prepara para enviar ao Java!
     const dadosParaEnviar = {
       nomeCompleto: nomeLimpo,
       email: emailLimpo,
       senha: senhaLimpa,
       matricula: matriculaLimpa,
-      curso: "Não informado"
+      curso: "Não informado",
+      tipo_usuario: "ESTUDANTE" // <-- ADICIONE ESTA LINHA
     };
 
     try {
@@ -118,8 +120,31 @@ export default function Cadastro() {
       }, 3000);
 
     } catch (erro) {
-      console.error("Erro ao cadastrar:", erro);
-      alert("Erro do Back-end: " + (erro.response?.data || erro.message));
+      console.error("Erro completo ao cadastrar:", erro);
+      
+      let mensagemErro = "Ocorreu um erro inesperado ao conectar com o servidor.";
+
+      // Se o erro veio do back-end (Spring Boot) com uma resposta estruturada
+      if (erro.response && erro.response.data) {
+          // Verifica se o Spring Boot mandou uma string simples
+          if (typeof erro.response.data === 'string') {
+              mensagemErro = erro.response.data;
+          } 
+          // Verifica se é o formato padrão de erro do Spring Boot (JSON com propriedade 'message')
+          else if (erro.response.data.message) {
+              mensagemErro = erro.response.data.message;
+          }
+          // Caso seja outro tipo de objeto JSON, tentamos convertê-lo em texto legível
+          else {
+              mensagemErro = JSON.stringify(erro.response.data);
+          }
+      } 
+      // Se não tem response, pode ser erro de rede (Servidor fora do ar, RabbitMQ caiu etc)
+      else if (erro.message) {
+          mensagemErro = erro.message;
+      }
+
+      alert("Atenção: " + mensagemErro);
     }
   };
 

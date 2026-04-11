@@ -7,7 +7,8 @@ import Cadastro from './pages/Cadastro/Cadastro';
 import RecuperarSenha from './pages/RecuperarSenha/RecuperarSenha';
 import AtualizarSenha from './pages/AtualizarSenha/AtualizarSenha';
 import TelaEstudante from "./pages/TelaEstudante/TelaEstudante"; 
-import Perfil from './pages/Perfil/Perfil'; // 👈 Import perfeito!
+import Perfil from './pages/Perfil/Perfil'; 
+import MeusPedidos from './pages/MeusPedidos/MeusPedidos'; // 👈 NOVO: Importando a tela de Pedidos!
 
 export default function App() {
   return (
@@ -27,8 +28,11 @@ export default function App() {
         {/* Rota da Tela Principal do Estudante */}
         <Route path="/estudante" element={<TelaEstudante />} />
 
-        {/* 👇 ROTA DO PERFIL: Faltou adicionar esta linha aqui! */}
+        {/* ROTA DO PERFIL */}
         <Route path="/perfil" element={<Perfil />} />
+
+        {/* 👇 NOVA ROTA: Rota da Tela de Meus Pedidos */}
+        <Route path="/pedidos" element={<MeusPedidos />} />
 
       </Routes>
     </Router>

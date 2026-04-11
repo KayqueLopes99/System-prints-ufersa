@@ -70,10 +70,27 @@ export default function TelaEstudante() {
       </main>
 
       <nav className="navegacao-inferior">
-        <div className="icone-nav ativo"><Home size={28} /></div>
-        <div className="icone-nav"><Printer size={28} /></div>
-        <div className="icone-nav"><FileText size={28} /></div>
-        <div className="icone-nav"><Lightbulb size={28} /></div>
+        {/* Home continua ativa nesta tela */}
+        <div className="icone-nav ativo" style={{ cursor: 'pointer' }}>
+          <Home size={28} />
+        </div>
+        
+        <div className="icone-nav" style={{ cursor: 'pointer' }}>
+          <Printer size={28} />
+        </div>
+        
+        {/* 👉 NOVO: Adicionado onClick para ir para a tela de pedidos */}
+        <div 
+          className="icone-nav" 
+          onClick={() => navigate('/pedidos')} 
+          style={{ cursor: 'pointer' }}
+        >
+          <FileText size={28} />
+        </div>
+        
+        <div className="icone-nav" style={{ cursor: 'pointer' }}>
+          <Lightbulb size={28} />
+        </div>
       </nav>
     </div>
   );

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-// Trouxemos o FiCheckCircle de volta!
-import { FiPrinter, FiUser, FiLock, FiEye, FiEyeOff, FiCheckCircle } from 'react-icons/fi';
+// 👉 Adicionamos o FiAlertCircle para o aviso de erro
+import { FiPrinter, FiUser, FiLock, FiEye, FiEyeOff, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
 import './Login.css';
 
 export default function Login() {
@@ -10,13 +10,16 @@ export default function Login() {
   const [senha, setSenha] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
 
-  // Voltamos com o estado de sucesso
   const [exibirSucesso, setExibirSucesso] = useState(false);
+  // 👉 NOVO ESTADO: Controla a mensagem de erro na tela
+  const [erroAviso, setErroAviso] = useState('');
 
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setErroAviso(''); // Limpa o erro anterior ao tentar logar de novo
+
     try {
       const resposta = await axios.post('http://localhost:8080/api/usuarios/login', {
         email: email.trim(),
@@ -34,9 +37,21 @@ export default function Login() {
       setTimeout(() => { navigate('/estudante'); }, 2000);
     } catch (erro) {
       console.error("Erro no login:", erro);
-      // Exibe a mensagem de erro que vem do Java se disponível
-      const mensagemErro = erro.response?.data || "E-mail/Matrícula ou senha incorretos.";
-      alert("Erro ao entrar: " + mensagemErro);
+      
+      // Tratamento inteligente da mensagem de erro (igual fizemos no cadastro)
+      let textoErro = "E-mail/Matrícula ou senha incorretos.";
+      if (erro.response && erro.response.data) {
+          if (typeof erro.response.data === 'string') {
+              textoErro = erro.response.data;
+          } else if (erro.response.data.message) {
+              textoErro = erro.response.data.message;
+          }
+      } else if (erro.message) {
+          textoErro = "Erro de conexão com o servidor.";
+      }
+
+      // 👉 Em vez de alert(), salvamos no estado para aparecer na tela!
+      setErroAviso(textoErro);
     }
   };
 
@@ -66,6 +81,26 @@ export default function Login() {
               <p>Digite seu acesso</p>
             </div>
 
+            {/* 👉 AVISO DE ERRO NA TELA (Renderiza apenas se erroAviso não for vazio) */}
+            {erroAviso && (
+              <div style={{ 
+                backgroundColor: '#ffebee', 
+                color: '#c62828', 
+                padding: '12px', 
+                borderRadius: '8px', 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '8px', 
+                marginBottom: '20px', 
+                border: '1px solid #ef9a9a',
+                fontSize: '0.9rem',
+                fontWeight: '500'
+              }}>
+                <FiAlertCircle size={24} />
+                <span>{erroAviso}</span>
+              </div>
+            )}
+
             <form className="formulario" onSubmit={handleLogin}>
               <div className="grupo-input">
                 <label>E-mail ou Matrícula</label>
@@ -75,7 +110,10 @@ export default function Login() {
                     type="text"
                     placeholder="Informe sua matrícula ou e-mail"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setErroAviso(''); // 👉 Limpa o erro se o usuário começar a digitar de novo
+                    }}
                     required
                   />
                 </div>
@@ -89,7 +127,10 @@ export default function Login() {
                     type={mostrarSenha ? "text" : "password"}
                     placeholder="Digite sua senha"
                     value={senha}
-                    onChange={(e) => setSenha(e.target.value)}
+                    onChange={(e) => {
+                      setSenha(e.target.value);
+                      setErroAviso(''); // 👉 Limpa o erro se o usuário começar a digitar de novo
+                    }}
                     required
                     style={{ paddingRight: '40px' }}
                   />
